@@ -2,7 +2,10 @@
 
 [Visual Studio Code](https://code.visualstudio.com/) has quickly become one of the most popular code editors among software developers. Last year, Microsoft released the browser-based editor that powers VS Code as a standalone application called the [Monaco Editor](https://github.com/Microsoft/monaco-editor). Out-of-the-box, the Monaco Editor supports Microsoft's signature [Intellisense](https://docs.microsoft.com/en-us/visualstudio/ide/using-intellisense) as well as the option to compare two different pieces of code.
 
-As Visual Studio Code is the preferred code editor of many members of the Aras Labs team, this project aims to integrate the Monaco Editor into an alternate Method Form to allow for an enhanced developer experience for writing methods inside of Aras Innovator.
+As Visual Studio Code is the preferred code editor of many members of the Aras Labs team, this project aims to integrate the Monaco Editor into an alternate Method Form to allow for an enhanced developer experience 
+for writing methods inside of Aras Innovator.
+
+![screenshot](Screenshots/Embedded-Monaco-Editor.png)
 
 ## Project Details
 
