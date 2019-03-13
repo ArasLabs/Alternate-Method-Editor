@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- (c) Copyright by Aras Corporation, 2004-2013. -->
+<html>
+<head>
+	<script type="text/javascript">
+		var topWnd = window.parent.parent;
+		var aras = topWnd.aras;
+	</script>
+	<script type="text/javascript" src="javascript/monacoEditorToolbar.js"></script>
+	<script type="text/javascript" src="javascript/_jsHelp.js"></script>
+	<script type="text/javascript" src="javascript/helpEditorTab.js"></script>
+	<script type="text/javascript" src="javascript/helpEditorPane.js"></script>
+	<script type="text/javascript" src="javascript/monacoMethodEditor.js"></script>
+	<script type="text/javascript" src="javascript/beautify.js"></script>
+
+	<style type="text/css" media="screen">
+		#editor {
+
+		}
+	</style>
+	<style type="text/css">
+		@import "../../javascript/dojo/resources/dojo.css";
+		@import "../../javascript/dijit/themes/claro/claro.css";
+		@import "../../javascript/dojox/grid/resources/claroGrid.css";
+		@import "../../javascript/include.aspx?classes=common.css";
+		@import "../../styles/default.css";
+
+		html, body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		li {
+			list-style-type: none !important;
+		}
+	</style>
+	<link rel="stylesheet" href="css/methodeditor.css" />
+	<script type="text/javascript" src="../../javascript/include.aspx?classes=XmlDocument"></script>
+	<script type="text/javascript" src="../../javascript/include.aspx?classes=/dojo.js" data-dojo-config="isDebug: false, parseOnLoad: true, baseUrl:'../../javascript/dojo'"></script>
+	<script type="text/javascript">
+		
+		// javascript/methodEditor.js
+		// create method editor helper for working with tabs, panels and editor
+		var methodEditorHelper = new MethodEditor(topWnd); 
+
+		// javascript/codeEditorToolbar.js
+		// create toolbar helper for working with editor toolbar
+		window.toolbar = new MonacoEditorToolbar(topWnd, methodEditorHelper);
+
+		// javascript/helpEditorTab.js
+		// create helpTab helper for working with help tab
+		window.helpTab = new HelpEditorTab(topWnd, methodEditorHelper);
+
+		// javascript/helpEditorPane.js
+		// create helpPane helper for working with help panel
+		window.helpPane = new HelpEditorPane(topWnd);
+
+		// overide delete command. I don't know why? old code.
+		methodEditorHelper.ovverideDeleteCommand();
+        
+        window.onload = function() {
+            methodEditorHelper.fillListOfMethodLanguages();
+            window.toolbar.initToolbar();
+            window.helpTab.initHelp();
+			// show help tree
+			setTimeout(function() { window.helpPane.showHelp(); }, 100);
+
+			// i don't know why
+            setTimeout(function() { methodEditorHelper.initParentMenu();}, 20);
+            
+			// declare saveUserChanges function, and resize event
+			window.saveUserChanges = methodEditorHelper.saveUserChanges;
+			window.addEventListener("resize", function () {
+				window.editor.layout();
+			});
+
+			// change main window events, such as "onSaveUnlockAndExitCommand",
+			// onSaveCommand, onUnlockCommand, onLockCommand" 
+			methodEditorHelper.changeEventMethods();
+        }
+        
+		// for Chrome to correct focus handling in main window
+		if (aras.Browser.isCh() && window.frameElement) {
+			window.addEventListener('focus', function() {
+				window.frameElement.focus();
+			});
+		}
+
+		// add editor resize event to basic dojo ContentPane
+		require(["dojo/ready", "dojo/aspect", "dijit/registry"], function (ready, aspect, registry) {
+			ready(function () {
+				aspect.after(registry.byId("workAreaWrapper"), "resize", function () {
+					methodEditorHelper.resizeEditor();
+				});
+			});
+		});
+	</script>
+</head>
+<body class="claro">
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props=" liveSplitters:true" id="BorderContainer">
+		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" id="toolbar">
+		</div>
+		<div class="" style="overflow: hidden;" data-dojo-type="dijit/layout/BorderContainer"
+			 data-dojo-props="region: 'center'" id="workarea">
+			<div data-dojo-type="dijit/layout/ContentPane" region="leading" style="overflow: hidden; width:70%" id="workAreaWrapper" data-dojo-props="splitter: true">
+				<div id="editorpane" style="background: white; overflow: auto; width:100%; overflow: hidden;">
+                    <div id="editormain" style="height:100%; width:100%">
+                        <iframe id="MonacoEditor" style="width:100%; height:100%;" src="./MonacoEditor.html"></iframe>
+                    </div>
+					<iframe id="printable" style="display: none;"></iframe>
+				</div>
+			</div>
+			<div data-dojo-type="dijit/layout/ContentPane" region="center" style="overflow: hidden; width:30%" data-dojo-props="splitter: true" id="helpPane">
+				<div id="right" style="float:none;">
+				</div>
+			</div>
+		</div>
+		<div class="" style="height: 200px" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'bottom', splitter: true, design: 'headline'" id="helpDebugSlot">
+			<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="bottom">
+				<div data-dojo-type="dijit/layout/TabContainer" id="tabPane">
+					<div data-dojo-type="dijit/layout/ContentPane" title="Help" id="helpTab">
+						<div id="helpSlot">
+							<table width="100%" class="helpTable">
+								<tr>
+									<td valign="top">
+										<div id="help_comments" class="text_class" />
+									</td>
+								</tr>
+								<tr>
+									<td valign="top" id="help_label" class="syntax" style="display: none" />
+								</tr>
+								<tr id="parameters_slot" style="display: none">
+									<td>
+										<table width="100%" height="100%">
+											<tr class="text_class">
+												<b>Parameters</b>
+											</tr>
+											<tr>
+												<div id="help_parameters" class="text_class" />
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr id="returns_slot" style="display: none">
+									<td>
+										<table width="100%" height="100%">
+											<tr class="text_class">
+												<b>Returns</b>
+											</tr>
+											<tr>
+												<div id="help_returns" class="text_class" />
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr id="remarks_slot" style="display: none">
+									<td>
+										<table width="100%" height="100%">
+											<tr class="text_class">
+												<b>Remarks</b>
+											</tr>
+											<tr>
+												<div id="help_remarks" class="text_class" />
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr id="exception_slot" style="width: 100%; display: none">
+									<td colspan="2">
+										<table class="dtTABLE" id="dtTABLE">
+											<tr>
+												<b>Exceptions</b>
+											</tr>
+											<tr>
+												<th width="50%">
+													<b>Exception Type</b>
+												</th>
+												<th width="50%">
+													<b>Condition</b>
+												</th>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<tr id="example_slot" style="display: none">
+									<td>
+										<table class="helpExampleSlot" width="100%">
+											<tr>
+												<td>
+													<b>Example:</b>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<div id="help_example" class="helpExample" />
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div data-dojo-type="dijit/layout/ContentPane" title="Debug" id="debugTab">
+						<textarea id="debug" class="debugSlot" id="debugSlot" readonly>Press "Check Syntax" button to validate method code.</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

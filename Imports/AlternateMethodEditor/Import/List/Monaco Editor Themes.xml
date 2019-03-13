@@ -1,0 +1,25 @@
+﻿<AML>
+ <Item type="List" id="BB288F7224344824A1A158B8AFD5525F" action="add">
+  <name>Monaco Editor Themes</name>
+  <Relationships>
+   <Item type="Value" id="2F1F53B818F94AE49E5B651CEF991219" action="add">
+    <label xml:lang="en">Visual Studio</label>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Monaco Editor Themes" type="List">BB288F7224344824A1A158B8AFD5525F</source_id>
+    <value>vs</value>
+   </Item>
+   <Item type="Value" id="9E4A563184FD45029E82BA0DF7F73CE9" action="add">
+    <label xml:lang="en">Visual Studio (Dark)</label>
+    <sort_order>256</sort_order>
+    <source_id keyed_name="Monaco Editor Themes" type="List">BB288F7224344824A1A158B8AFD5525F</source_id>
+    <value>vs-dark</value>
+   </Item>
+   <Item type="Value" id="7A2805DC5383499EA6F2DA1A1E001EA0" action="add">
+    <label xml:lang="en">High-Contrast Black</label>
+    <sort_order>384</sort_order>
+    <source_id keyed_name="Monaco Editor Themes" type="List">BB288F7224344824A1A158B8AFD5525F</source_id>
+    <value>hc-black</value>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

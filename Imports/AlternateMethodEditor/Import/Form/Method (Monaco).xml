@@ -1,0 +1,132 @@
+﻿<AML>
+ <Item type="Form" id="5B30C7E147304E1D9214225DC844E23F" action="add">
+  <category_form>0</category_form>
+  <description>An Alternative Method Editor</description>
+  <height>659</height>
+  <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+  <width>1024</width>
+  <name>Method (Monaco)</name>
+  <Relationships>
+   <Item type="Body" id="2781821CB8A34B0685D64DDFDDCDF4E0" action="add">
+    <bg_color>#dddddd</bg_color>
+    <css>html, body
+{
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+}</css>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="Method (Monaco)" type="Form">5B30C7E147304E1D9214225DC844E23F</source_id>
+    <Relationships>
+     <Item type="Field" id="68EBA5C999C84B47A58C28517F1D944C" action="add">
+      <border_width>0</border_width>
+      <display_length>400</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Comment</label>
+      <label_position>left</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="comments" type="Property">ED966339C4E54C7EB89F7556A317E4BE</propertytype_id>
+      <sort_order>262</sort_order>
+      <source_id keyed_name="2781821CB8A34B0685D64DDFDDCDF4E0" type="Body">2781821CB8A34B0685D64DDFDDCDF4E0</source_id>
+      <tab_index>262</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>250</x>
+      <y>5</y>
+      <name>comment</name>
+     </Item>
+     <Item type="Field" id="5770027AD8B24A3B8D26FEA1EB68F1E0" action="add">
+      <bg_color>#c0c0c0</bg_color>
+      <border_width>0</border_width>
+      <display_length_unit>px</display_length_unit>
+      <field_type>item</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Execution allowed to</label>
+      <label_position>left</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="execution_allowed_to" type="Property">5C1F624B613B45148EE7F63F7AE21B83</propertytype_id>
+      <sort_order>390</sort_order>
+      <source_id keyed_name="2781821CB8A34B0685D64DDFDDCDF4E0" type="Body">2781821CB8A34B0685D64DDFDDCDF4E0</source_id>
+      <tab_index>256</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>740</x>
+      <y>5</y>
+      <name>execution_allowed_to</name>
+     </Item>
+     <Item type="Field" id="1AD1D8C923464120B656B99E3FA95CD5" action="add">
+      <border_width>0</border_width>
+      <css>{$this field rule} .sys_f_border, {$this field rule} .sys_f_table, {$this field rule} .sys_f_value_container
+{
+  width:100%;
+  height:100%;
+}
+{$this field rule} .sys_f_value {
+	height: 100%;
+}
+{$this field rule} .sys_fn_method_code {
+    height: 100%;
+    width: 100%;
+    top: 30px;
+    left: 0px;
+}
+</css>
+      <display_length_unit>px</display_length_unit>
+      <field_type>html</field_type>
+      <font_color>#000000</font_color>
+      <font_family>tahoma, arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <html_code><![CDATA[<iframe id="CodeEditor_iframe" src="CodeEditor_Monaco/CodeEditor.html" style="border: none; width:100vw; height:100vh; visibility:visible;" allowtransparency="true"></iframe>]]></html_code>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label_position>top</label_position>
+      <list_no_blank>0</list_no_blank>
+      <sort_order>4</sort_order>
+      <source_id keyed_name="2781821CB8A34B0685D64DDFDDCDF4E0" type="Body">2781821CB8A34B0685D64DDFDDCDF4E0</source_id>
+      <tab_index>4</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>0</x>
+      <y>30</y>
+      <name>method_code</name>
+     </Item>
+     <Item type="Field" id="708A608428E646F7835468E9BD43F1CB" action="add">
+      <border_width>0</border_width>
+      <display_length>179</display_length>
+      <display_length_unit>px</display_length_unit>
+      <field_type>text</field_type>
+      <font_color>#000000</font_color>
+      <font_family>arial, helvetica, sans-serif</font_family>
+      <font_size>8pt</font_size>
+      <font_weight>bold</font_weight>
+      <is_disabled>0</is_disabled>
+      <is_visible>1</is_visible>
+      <label xml:lang="en">Name</label>
+      <label_position>left</label_position>
+      <list_no_blank>0</list_no_blank>
+      <propertytype_id keyed_name="name" type="Property">51DF46E3640540A9A55E571A125DEA23</propertytype_id>
+      <sort_order>1</sort_order>
+      <source_id keyed_name="2781821CB8A34B0685D64DDFDDCDF4E0" type="Body">2781821CB8A34B0685D64DDFDDCDF4E0</source_id>
+      <tab_index>0</tab_index>
+      <tab_stop>1</tab_stop>
+      <x>5</x>
+      <y>5</y>
+      <name>name</name>
+     </Item>
+    </Relationships>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

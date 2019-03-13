@@ -1,0 +1,40 @@
+﻿<AML>
+ <Item type="View" id="3BC114817D1F4216AD8CF695573ADA28" action="add">
+  <client>js</client>
+  <display_priority>1</display_priority>
+  <related_id keyed_name="Method (Monaco)" type="Form">
+   <Item type="Form" id="5B30C7E147304E1D9214225DC844E23F" action="add">
+    <category_form>0</category_form>
+    <description>An Alternative Method Editor</description>
+    <height>659</height>
+    <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
+    <width>1024</width>
+    <name>Method (Monaco)</name>
+    <Relationships>
+     <Item type="Body" id="2781821CB8A34B0685D64DDFDDCDF4E0" action="add">
+      <bg_color>#dddddd</bg_color>
+      <css>html, body
+{
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+}</css>
+      <sort_order>128</sort_order>
+      <source_id keyed_name="Method (Monaco)" type="Form">5B30C7E147304E1D9214225DC844E23F</source_id>
+     </Item>
+    </Relationships>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">
+   <Item type="Identity" action="get" select="id">
+    <name>World</name>
+   </Item>
+  </role>
+  <show_ssvc>0</show_ssvc>
+  <sort_order>256</sort_order>
+  <source_id keyed_name="Method" type="ItemType" name="Method">87879A09B8044DE380D59DF22DE1867F</source_id>
+  <type>default</type>
+ </Item>
+</AML>

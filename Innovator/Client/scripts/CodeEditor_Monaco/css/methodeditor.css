@@ -1,0 +1,273 @@
+﻿.cm-tab
+{
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+.lint-error
+{
+	font-family: arial;
+	font-size: 70%;
+	background: #ffa;
+	color: #a00;
+	padding: 2px 5px 3px;
+}
+.lint-error-icon
+{
+	color: white;
+	background-color: red;
+	font-weight: bold;
+	border-radius: 50%;
+	padding: 0 3px;
+	margin-right: 7px;
+}
+.CodeMirror
+{
+	font-family: Arial;
+	font-size: 12px;
+}
+.CodeMirror-foldmarker
+{
+	color: blue;
+	text-shadow: #b9f 1px 1px 2px, #b9f -1px -1px 2px, #b9f 1px -1px 2px, #b9f -1px 1px 2px;
+	font-family: Arial;
+	line-height: .3;
+	cursor: pointer;
+}
+.CodeMirror-activeline-background
+{
+	background: #e8f2ff !important;
+}
+.CodeMirror-lines {
+	padding: 4px 0; /* Vertical padding around content */
+	font-size: 15px;
+	font-family: Arial;
+}
+.CodeMirror cm-s-default CodeMirror-wrap
+{
+	height: 100%;
+	background: white;
+}
+body
+{
+	background-color: buttonface;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	height: 100%; 
+	width: 100%;
+}
+.text_class
+{
+	margin-left: 10px;
+	font: 12px Arial;
+}
+table.dtTABLE
+{
+	width: 100%; /* Forces tables to have correct right margin */
+	border-width: 1px 1px 0px 0px;
+	border-style: solid;
+	border-color: #999999;
+	background-color: #999999;
+	font-size: 100%; /* Text in Table is same size as text outside table */
+}
+table.dtTABLE th, table.dtTABLE td
+{
+	border-style: solid; /* Creates the cell border and color */
+	border-width: 0px 0px 1px 1px;
+	border-style: solid;
+	border-color: #999999;
+	padding: 4px 6px;
+	text-align: left;
+}
+table.dtTABLE th
+{
+	background: #cccccc; /* Creates the shaded table header row */
+	vertical-align: bottom;
+}
+table.dtTABLE td
+{
+	background: #ffffff;
+	vertical-align: top;
+}
+.syntax
+{
+	background: #cccccc;
+	padding: 4px 8px;
+	cursor: text;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	color: #000000;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #999999;
+	font-weight: bolder;
+	letter-spacing: .1em;
+	font-size: 16px;
+}
+.helpTable
+{
+	overflow: hidden;
+	padding: 15px 15px 0px 15px;
+	width: 100% !important;
+}
+.helpExampleSlot
+{
+	background-color: #EEEEEE;
+	margin-right: 10px;
+}
+.helpExample
+{
+	font: 11px "Courier New";
+	margin-left: 10px;
+	margin-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.debugSlot
+{
+	z-index: 100;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	border: 1px solid #A0A0A0;
+	background-color: #FFFFFF;
+	font: 11px "Courier New";
+	padding: 0px;
+	border-style: none; 
+	border-color: Transparent;
+}
+
+#toolbar
+{
+	width: 100%;
+	padding: 0px;
+	height: 31px;
+	overflow: hidden;
+}
+#tb1 
+{
+	height: 31px;
+	overflow: hidden;
+}
+#helpTab
+{
+	height: 100%; 
+	margin: 0px; 
+	padding: 0px; 
+	overflow: hidden;
+}
+#debugTab
+{
+	height: 100%; 
+	padding-top: 10px;
+	padding-left: 15px;
+}
+#grid
+{
+	height: 100%;
+}
+#helpSlot
+{
+	z-index: 100;
+	position: relative;
+	height: 100%;
+	width: 100% !important;
+	overflow: auto;
+	background-color: #FFFFFF;
+}
+#tabPane
+{
+	height: 100%; 
+	overflow: hidden;
+}
+#bottom
+{
+	height: 100%;
+	overflow: auto;
+	background: #FFFFFF !important;
+	color: #000000 !important;
+	font-family: tahoma, arial, helvetica, sans-serif;
+}
+#editorpane
+{
+	height: 100%; 
+	width: 70%;
+	background: white; 
+	float: left; 
+	overflow: auto
+}
+#editorpane_splitter
+{
+	width: 5px; 
+	height: 100%; 
+	background: buttonface; 
+	float: left;
+}
+#rightarea
+{
+	width: 30%;
+	height: 100%;
+	float: right;
+}
+#right
+{
+	height: 100%; 
+	background: white; 
+	float: right;
+	overflow: auto;
+}
+#BorderContainer
+{
+	width: 100%; 
+	height: 100%; 
+	overflow: hidden; 
+	margin: 0px; 
+	padding: 0px;
+	border: 0px;
+}
+#codearea
+{
+	overflow: hidden;
+	display: none;
+}
+///////////////////
+.claro .dijitContentPane 
+{
+	padding: 0px;
+}
+/* nested layouts */
+.claro .dijitTabContainerTop-dijitContentPane,
+.claro .dijitTabContainerLeft-dijitContentPane,
+.claro .dijitTabContainerBottom-dijitContentPane,
+.claro .dijitTabContainerRight-dijitContentPane,
+.claro .dijitAccordionContainer-dijitContentPane
+ {
+	background-color: #ffffff;
+	padding: 0px;
+}
+.claro .dijitSplitContainer-dijitContentPane,
+.claro .dijitBorderContainer-dijitContentPane 
+{
+	background-color: #ffffff;
+	padding: 0px;
+}
+
+.claro .dijitSplitContainer-child,
+.claro .dijitBorderContainer-child 
+{
+	border: none;
+}
+
+@media print 
+{
+	#printable 
+	{ 
+		display: block;
+	}
+	#helpDebugSlot, #toolbar, #right
+	{
+		display: none;
+	}
+}

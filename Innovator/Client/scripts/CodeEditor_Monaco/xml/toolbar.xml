@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<toolbarapplet
+	on_load = "onToolbarLoad"
+	on_click = "onToolbarClick"
+	on_change = "onToolbarClick"
+	buttonsize = "26,25"
+	top_border = "1">
+	<toolbar id="normal">
+		<button image="../images/Print.svg" id="print" tooltip="Print"/>
+		<separator/>
+		<button image="../images/Undo.svg" id="undo" tooltip="Undo"/>
+		<button image="../images/Redo.svg" id="redo" tooltip="Redo"/>
+		<separator/>
+		<button image="../images/ExecuteSearch.svg" id="find" tooltip="Find"/>
+		<button image="../images/ViewRevisions.svg" id="replace" tooltip="Replace"/>
+		<separator/>
+		<button image="../images/Unindent.svg" id="unindent" tooltip="Unindent"/>
+		<button image="../images/Indent.svg" id="indent" tooltip="Indent"/>
+		<separator/>
+		<button image="../images/Formatting.svg" id="formatting" tooltip="Formatting"/>
+		<button image="../images/Comment.svg" id="comment" tooltip="Comment"/>
+		<button image="../images/Uncomment.svg" id="uncomment" tooltip="Uncomment"/>
+		<separator/>
+		<button image="../images/Compile.svg" id="chksyn" tooltip="Check syntax"/>
+		<separator/>
+		<choice id="side" width="auto">
+			<choiceitem id="server">Server-side</choiceitem>
+			<choiceitem id="client">Client-side</choiceitem>
+		</choice>
+		<choice id="method_lang" width="auto">
+			<choiceitem/>
+		</choice>
+		<choice id="theme" width="auto" tooltip="Editor Theme">
+		</choice>
+		<separator/>
+		<button image="../images/Tree.svg" id="ftoc" state="1" tooltip="Show Code Guide"/>
+		<button image="../images/HideTOC.svg" id="toc_pos" state="0" tooltip="Code Guide Left/Right"/>
+		<separator/>
+		<button image="../images/HelpLookup.svg" id="help" tooltip="Help on this method"/>
+		<button image="../images/Help.svg" id="fhelp" state="1" tooltip="Show Method Help"/>
+	</toolbar>
+</toolbarapplet>

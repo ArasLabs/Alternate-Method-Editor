@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<toolbarapplet
+	on_load = "onToolbarLoad"
+	on_click = "onToolbarClick"
+	on_change = "onToolbarClick"
+	buttonsize = "26,25"
+	top_border = "1">
+	<toolbar id="normal">
+		<button image="../images/Print.svg" id="print" tooltip="印刷"/>
+		<separator/>
+		<button image="../images/Undo.svg" id="undo" tooltip="元に戻す"/>
+		<button image="../images/Redo.svg" id="redo" tooltip="リドゥ"/>
+		<separator/>
+		<button image="../images/ExecuteSearch.svg" id="find" tooltip="検索"/>
+		<button image="../images/ViewRevisions.svg" id="replace" tooltip="置換え"/>
+		<separator/>
+		<button image="../images/Unindent.svg" id="unindent" tooltip="アンインデント"/>
+		<button image="../images/Indent.svg" id="indent" tooltip="インデント"/>
+		<separator/>
+		<button image="../images/Formatting.svg" id="formatting" tooltip="Formatting"/>
+		<button image="../images/Comment.svg" id="comment" tooltip="コメント"/>
+		<button image="../images/Uncomment.svg" id="uncomment" tooltip="アンコメント"/>
+		<separator/>
+		<button image="../images/Compile.svg" id="chksyn" tooltip="文法チェック"/>
+		<separator/>
+		<choice id="side" width="105">
+			<choiceitem id="server">サーバーサイド</choiceitem>
+			<choiceitem id="client">クライアントサイド</choiceitem>
+		</choice>
+		<choice id="method_lang" width="82">
+			<choiceitem/>
+		</choice>
+		<separator/>
+		<button image="../images/Tree.svg" id="ftoc" state="1" tooltip="コードガイド表示"/>
+		<button image="../images/HideTOC.svg" id="toc_pos" state="0" tooltip="コードガイド左/右"/>
+		<separator/>
+		<button image="../images/HelpLookup.svg" id="help" tooltip="このメソッドのヘルプ"/>
+		<button image="../images/Help.svg" id="fhelp" state="1" tooltip="メソッドヘルプ表示"/>
+	</toolbar>
+</toolbarapplet>
