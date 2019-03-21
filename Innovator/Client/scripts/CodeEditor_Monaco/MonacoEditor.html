@@ -36,13 +36,12 @@
         function initEditor() {
             require.config({ paths: { 'vs': 'javascript/monaco-editor/min/vs' }});
             require(['vs/editor/editor.main'], function() {
-                var canEdit = (aras.getItemProperty(parent.parent.document.item, "locked_by_id", "") === "")
                 var code = aras.getItemProperty(parent.parent.document.item, "method_code") || "";
                 var editor = monaco.editor.create(document.getElementById('editormain'), {
                     value: code,
                     language: "javascript",
                     theme: "vs", // Default theme. Can be changed in the editor
-                    readOnly: canEdit
+                    readOnly: !parent.parent.document.isEditMode
                 });
                 parent.editor = editor;
                 parent.monacoEditor = monaco.editor;
