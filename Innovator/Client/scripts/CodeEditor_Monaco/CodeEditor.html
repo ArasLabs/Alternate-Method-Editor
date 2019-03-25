@@ -59,7 +59,7 @@
 		window.helpPane = new HelpEditorPane(topWnd);
 
 		// overide delete command. I don't know why? old code.
-		methodEditorHelper.ovverideDeleteCommand();
+		methodEditorHelper.overideDeleteCommand();
         
         window.onload = function() {
             methodEditorHelper.fillListOfMethodLanguages();
@@ -82,6 +82,15 @@
 			methodEditorHelper.changeEventMethods();
         }
         
+		// if method code was changed we should save it
+		window.onbeforeunload = function () {
+			// NOTE: This does not work in Google Chrome
+			// Chrome seems to explicitly block most functionality in this event
+			if (methodEditorHelper.isTextChanged()) {
+				methodEditorHelper.saveUserChanges();
+			}
+		};
+
 		// for Chrome to correct focus handling in main window
 		if (aras.Browser.isCh() && window.frameElement) {
 			window.addEventListener('focus', function() {

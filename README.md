@@ -15,12 +15,14 @@ Aras 11.0 SP15
 #### History:
 Release | Notes
 --------|--------
+[v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | Introducing diff editor. Misc bug fixes.
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | Bug fixes
 [v1.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.1) | Initial Release. Tested on Chrome, Firefox 60 ESR, and Edge
 
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | 11.0 SP15
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | 11.0 SP15
 [v1.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.1) | 11.0 SP15
 
@@ -69,15 +71,20 @@ You are now ready to login to Aras and try out the Alternate Method Editor
 4. Lock the Method
 5. Begin typing into the Method Editor
 6. Notice that there is now Intellisense suggesting words as you type
+7. Close this Method
+8. Open a Method that has multiple generations
+9. Select the generation you want to compare to in the new dropdown
+10. Click the new toolbar button to launch the diff editor
+    * ![screenshot](Screenshots/Diff-Editor-Example.gif)
+11. Click the same toolbar button again to switch back to the standard editor
 
 For more information on contributing to this project, another Aras Labs project, or any Aras Community project, shoot us an email at araslabs@aras.com.
 
 ## Future Features
 
-1. Add the Monaco Editor as a sub-module of this project to easily stay up to date with the latest release and to cut down on the size of this project.
-2. Integrate another toolbar button to allow for comparison of two different versions of a Method.
-3. Add support for JavaScript parsing. (There is already a JS linter in this editor. The information from that linter just needs to be extracted and displayed to the user)
-4. Making themes for the Monaco Editor is much simpler than it is for the Ace editor. It'd be cool to have a theme designer, though that may be a separate project
+1. Add Intellisense for the IOM when editing C# or VB methods.
+2. Add support for JavaScript parsing. (There is already a JS linter in this editor. The information from that linter just needs to be extracted and displayed to the user)
+3. Making themes for the Monaco Editor is much simpler than it is for the Ace editor. It'd be cool to have a theme designer, though that may be a separate project
 
 ## Credits
 

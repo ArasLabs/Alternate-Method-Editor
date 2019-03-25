@@ -28,7 +28,7 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
             toolbar.show();
 
             var codelang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
-            methodEditorHelper.currentLanguage = codelang;
+            methodEditor.currentLanguage = codelang;
             toolbar.getItem("method_lang").enable();
             
             if (codelang === "JScript" || codelang === "JavaScript") {
@@ -44,6 +44,14 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 				var themeValue = themeValues[i];
 				toolbar.getItem("theme").Add(topWnd.aras.getItemProperty(themeValue, "value"),
 											 topWnd.aras.getItemProperty(themeValue, "label"));
+			}
+
+			toolbar.getItem("compareRevisions").enable();
+			// Assumes that you're viewing the most current generation
+			var methodGenerations = topWnd.aras.getItemProperty(parent.document.item, "generation");
+			for (var i = (parseInt(methodGenerations) - 1); i > 0; i--)
+			{
+				toolbar.getItem("generations").Add(i.toString(), i.toString());
 			}
 
             clientControlsFactory.on(toolbar, {
@@ -101,7 +109,18 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 				break;
             case "chksyn":
                 checkSyntax();
-                break;
+				break;
+			case "compareRevisions":
+				if (methodEditor.isTextChanged()) {
+					methodEditor.saveUserChanges();
+				}
+				if (tbItem.getState()) {
+					var selectedGen = toolbar.getItem("generations").getSelectedItem();
+					methodEditor.launchDiffEditor(selectedGen);
+				} else {
+					methodEditor.closeDiffEditor();
+				}
+				break;
             case "ftoc":
                 showHideToc(tbItem.getState());
                 break; // hide or show help pane

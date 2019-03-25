@@ -23,6 +23,10 @@
 		<separator/>
 		<button image="../images/Compile.svg" id="chksyn" tooltip="Check syntax"/>
 		<separator/>
+		<button image="../images/Compare.svg" id="compareRevisions" state="0" tooltip="Compare with Old Generation"/>
+		<choice id="generations" width="auto" tooltip="Generation to Compare">
+		</choice>
+		<separator/>
 		<choice id="side" width="auto">
 			<choiceitem id="server">Server-side</choiceitem>
 			<choiceitem id="client">Client-side</choiceitem>

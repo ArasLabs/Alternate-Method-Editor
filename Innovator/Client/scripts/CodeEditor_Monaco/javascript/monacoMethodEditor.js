@@ -8,6 +8,7 @@ function MethodEditor(mainWnd) {
     var tabPane;
     var preservedMenuFrame = null;
     var textChanged = false;
+    var comparisonGeneration = 1;
 
     this.setLanguage = function (langName) {
         if (!window.editor) {
@@ -108,8 +109,10 @@ function MethodEditor(mainWnd) {
 	};
     
     this.saveUserChanges = function() {
-        if (parent.handleItemChange) {
+        if (parent.handleItemChange && (window.editor.getModel().modified === undefined)) {
             parent.handleItemChange("method_code", window.editor.getValue());
+        } else {
+            parent.handleItemChange("method_code", window.editor.getModel().modified.getValue());
         }
     };
 
@@ -117,7 +120,7 @@ function MethodEditor(mainWnd) {
 
         // function to save method code before basic item events (Save, Unlock, Save and Unlock)
         topWnd.methodEditor_saveUserChangesIfNeed = function() {
-            if (window.methodEditorHelper.isTextChanged) {
+            if (window.methodEditorHelper.isTextChanged()) {
                 window.methodEditorHelper.saveUserChanges();
             }
         };
@@ -166,19 +169,25 @@ function MethodEditor(mainWnd) {
 		lockCommand = lockCommand.substr(0, lockIndex + 1) + " SetReadOnlyMode(false); " + lockCommand.substr(lockIndex + 1);
 		topWnd.eval("onLockCommand=" + lockCommand);
 
-		//--- handle method code change
+        //--- handle method code change
 	};
 	
 	this.setEditorChangeEvent = function() {
-		window.editor.onDidChangeModelContent(function (e) {
-			if (!textChanged) {
-				window.saveUserChanges();
-			}
-			textChanged = true;
-		});
+        var handleChange = function(e) {
+            if (!textChanged) {
+                window.saveUserChanges();
+            }
+            textChanged = true;
+        }
+
+        if (window.editor.onDidChangeModelContent) {
+            window.editor.onDidChangeModelContent(handleChange);
+        } else {
+            window.editor.getModel().modified.onDidChangeContent(handleChange);
+        }
 	}
 
-	this.ovverideDeleteCommand = function() {
+	this.overideDeleteCommand = function() {
 		topWnd.onPurgeDeleteCommandOriginal = topWnd.onPurgeDeleteCommand;
 		topWnd.onPurgeDeleteCommand = function onPurgeDeleteMethodCommand(command, silentMode) {
 			topWnd.isMethodDeleted = true;
@@ -190,5 +199,31 @@ function MethodEditor(mainWnd) {
 
 	this.isTextChanged = function() {
 		return textChanged;
-	};
+    };
+    
+    this.launchDiffEditor = function(genToCompare) {
+        this.setComparisonMethodGeneration(genToCompare);
+
+        var monacoEditorFrame = document.getElementById("MonacoEditor");
+        monacoEditorFrame.src = "./MonacoDiffEditor.html";
+    };
+
+    this.closeDiffEditor = function() {
+        var monacoEditorFrame = document.getElementById("MonacoEditor");
+        monacoEditorFrame.src = "./MonacoEditor.html";
+    }
+
+    this.getComparisonMethodCode = function() {
+        var oldMethod = topWnd.aras.IomInnovator.newItem("Method", "get");
+        oldMethod.setProperty("config_id", topWnd.aras.getItemProperty(parent.document.item, "config_id"));
+        oldMethod.setProperty("generation", this.comparisonGeneration);
+        oldMethod.setAttribute("select", "method_code");
+        oldMethod = oldMethod.apply();
+
+        return oldMethod.getProperty("method_code", "");
+    };
+
+    this.setComparisonMethodGeneration = function(genToCompare) {
+        this.comparisonGeneration = genToCompare;
+    };
 }
