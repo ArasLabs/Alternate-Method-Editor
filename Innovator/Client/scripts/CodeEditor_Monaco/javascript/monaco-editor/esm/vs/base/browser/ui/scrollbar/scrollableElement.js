@@ -240,6 +240,7 @@ var AbstractScrollableElement = /** @class */ (function (_super) {
                 _this._onMouseWheel(new StandardWheelEvent(browserEvent));
             };
             this._mouseWheelToDispose.push(dom.addDisposableListener(this._listenOnDomNode, 'mousewheel', onMouseWheel));
+			this._mouseWheelToDispose.push(dom.addDisposableListener(this._listenOnDomNode, 'DOMMouseScroll', onMouseWheel));
         }
     };
     AbstractScrollableElement.prototype._onMouseWheel = function (e) {

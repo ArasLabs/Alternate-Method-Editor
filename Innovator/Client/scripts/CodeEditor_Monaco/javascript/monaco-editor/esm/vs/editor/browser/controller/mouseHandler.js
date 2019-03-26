@@ -73,7 +73,10 @@ var MouseHandler = /** @class */ (function (_super) {
                 e.stopPropagation();
             }
         };
+		// IE9, Chrome, Safari, Opera
         _this._register(dom.addDisposableListener(_this.viewHelper.viewDomNode, 'mousewheel', onMouseWheel, true));
+		// Firefox
+		_this._register(dom.addDisposableListener(_this.viewHelper.viewDomNode, 'DOMMouseScroll', onMouseWheel, true));
         _this._context.addEventHandler(_this);
         return _this;
     }
