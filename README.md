@@ -15,6 +15,7 @@ Aras 11.0 SP15
 #### History:
 Release | Notes
 --------|--------
+[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | Bug fixes.
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | Introducing diff editor. Misc bug fixes.
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | Bug fixes
 [v1.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.1) | Initial Release. Tested on Chrome, Firefox 60 ESR, and Edge
@@ -22,6 +23,7 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | 11.0 SP15
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | 11.0 SP15
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | 11.0 SP15
 [v1.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.1) | 11.0 SP15
