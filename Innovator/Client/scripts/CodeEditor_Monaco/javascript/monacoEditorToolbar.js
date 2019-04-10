@@ -134,7 +134,37 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
                 showHideHelp(tbItem.getState());
                 break; // hide or show help tab
         }
-    }
+	}
+	
+	// Model Markers are what's used to keep track of compilation errors
+	function printModelMarker(model) {
+		var errorString = "";
+
+		// Defined in Enum https://microsoft.github.io/monaco-editor/api/enums/monaco.markerseverity.html
+		// TODO: Remove this switch and get the value from the enum directly
+		var errorType = "";
+		switch (model.severity)
+		{
+			case 8:
+				errorType = "Error";
+				break;
+			case 1:
+				errorType = "Hint";
+				break;
+			case 2:
+				errorType = "Info";
+				break;
+			case 4:
+				errorType = "Warning";
+				break;
+		}
+
+		errorString += errorType + " : ";
+		errorString += model.message;
+		errorString += " On line " + model.startLineNumber;
+
+		return errorString;
+	}
 
     function printText() {
         var frame = document.getElementById("printable").contentWindow;
@@ -160,9 +190,12 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			resultXml.loadXML(topWnd.aras.compileMethod(parent.document.item.xml));
 			errorInfo = resultXml.selectSingleNode("/Result/status").text;
 		} else {
-            // The Ace editor suplies 'annotations' to evaluate the JavaScript in a method. I'm not sure what the equivalent to this is in the monaco editor yet.
-            // Will be implemented in the future
-            errorInfo = "JavaScript parsing not yet implemented";
+			// Model Markers are how the monaco stores JS Linting errors
+			var modelMarkers = monacoEditor.getModelMarkers();
+			for (var i = 0; i < modelMarkers.length; i++)
+			{
+				errorInfo += printModelMarker(modelMarkers[i]) + "\n";
+			}
         }
         if (errorInfo === "") {
             errorInfo = "ok";
