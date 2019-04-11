@@ -15,6 +15,7 @@ Aras 11.0 SP15
 #### History:
 Release | Notes
 --------|--------
+[v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | Add JS messages back to compile button
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | Bug fixes.
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | Introducing diff editor. Misc bug fixes.
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | Bug fixes
@@ -23,6 +24,7 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | 11.0 SP15
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | 11.0 SP15
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | 11.0 SP15
@@ -85,8 +87,6 @@ For more information on contributing to this project, another Aras Labs project,
 ## Future Features
 
 1. Add Intellisense for the IOM when editing C# or VB methods.
-2. Add support for JavaScript parsing. (There is already a JS linter in this editor. The information from that linter just needs to be extracted and displayed to the user)
-3. Making themes for the Monaco Editor is much simpler than it is for the Ace editor. It'd be cool to have a theme designer, though that may be a separate project
 
 ## Credits
 
