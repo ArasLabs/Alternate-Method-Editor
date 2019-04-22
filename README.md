@@ -15,6 +15,7 @@ Aras 11.0 SP15
 #### History:
 Release | Notes
 --------|--------
+[v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | Bug fixes
 [v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | Add JS messages back to compile button
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | Bug fixes.
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | Introducing diff editor. Misc bug fixes.
@@ -24,6 +25,7 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | 11.0 SP15
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | 11.0 SP15
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | 11.0 SP15
