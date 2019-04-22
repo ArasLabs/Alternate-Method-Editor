@@ -25,8 +25,8 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
-[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | 11.0 SP15
-[v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15
+[v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | 11.0 SP15
+[v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | 11.0 SP15
 [v2.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.0) | 11.0 SP15
 [v1.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v1.2) | 11.0 SP15
