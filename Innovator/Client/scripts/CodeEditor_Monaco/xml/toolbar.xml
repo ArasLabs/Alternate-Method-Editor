@@ -42,5 +42,7 @@
 		<separator/>
 		<button image="../images/HelpLookup.svg" id="help" tooltip="Help on this method"/>
 		<button image="../images/Help.svg" id="fhelp" state="1" tooltip="Show Method Help"/>
+		<separator/>
+		<button image="../images/FitAll.svg" id="fullscreen" tooltip="Make the editor full screen" />
 	</toolbar>
 </toolbarapplet>

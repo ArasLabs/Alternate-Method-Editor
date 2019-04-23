@@ -133,7 +133,10 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
             case "fhelp":
                 showHideHelp(tbItem.getState());
                 break; // hide or show help tab
-        }
+			      case "fullscreen":
+        				toggleFullscreen();
+        				break;
+            }
 	}
 	
 	// Model Markers are what's used to keep track of compilation errors
@@ -252,6 +255,17 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			var tmp = tHeight + parseInt(document.getElementById("editorpane").style.height);
 			helpDebugSlot.style.top = tmp + "px";
 			helpDebugSlotSplitter.style.top = tmp - helpDebugSlotSplitterHeight + "px";
+		}
+	}
+
+	function toggleFullscreen() {
+		// Check if the window is already fullscreen
+		if (parent.document.fullscreen) {
+			parent.document.exitFullscreen();
+		} else {
+			// Get the element containing the form
+			var mainFormElem = parent.document.getElementById("MainDataForm");
+			mainFormElem.requestFullscreen();
 		}
 	}
 

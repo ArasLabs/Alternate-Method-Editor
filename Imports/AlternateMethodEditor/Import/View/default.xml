@@ -20,6 +20,12 @@
 	padding: 0px;
 	margin: 0px;
 	overflow: hidden;
+}
+
+/* We're adding this explicitly here because the background was being lost in fullscreen mode */
+#MainDataForm
+{
+       background: #dddddd;
 }</css>
       <sort_order>128</sort_order>
       <source_id keyed_name="Method (Monaco)" type="Form">5B30C7E147304E1D9214225DC844E23F</source_id>
