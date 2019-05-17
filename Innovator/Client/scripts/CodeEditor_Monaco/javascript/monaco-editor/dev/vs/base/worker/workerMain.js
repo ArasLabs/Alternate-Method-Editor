@@ -6413,11 +6413,23 @@ define(__m[6/*vs/editor/common/core/range*/], __M([0/*require*/,1/*exports*/,2/*
             return Range.collapseToStart(this);
         };
         /**
+         * Create a new empty range using this range's end position
+         */
+        Range.prototype.collapseToEnd = function () {
+            return Range.collapseToEnd(this);
+        };
+        /**
          * Create a new empty range using this range's start position.
          */
         Range.collapseToStart = function (range) {
             return new Range(range.startLineNumber, range.startColumn, range.startLineNumber, range.startColumn);
         };
+        /**
+         * Create a new empty range using this range's end position
+         */
+        Range.collapseToEnd = function(range) {
+            return new Range(range.endLineNumber, range.endColumn, range.endLineNumber, range.endColumn);
+        }
         // ---
         Range.fromPositions = function (start, end) {
             if (end === void 0) { end = start; }
