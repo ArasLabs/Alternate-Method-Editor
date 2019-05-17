@@ -133,9 +133,6 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
             case "fhelp":
                 showHideHelp(tbItem.getState());
                 break; // hide or show help tab
-			      case "fullscreen":
-        				toggleFullscreen();
-        				break;
             }
 	}
 	
@@ -146,8 +143,7 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 		// Defined in Enum https://microsoft.github.io/monaco-editor/api/enums/monaco.markerseverity.html
 		// TODO: Remove this switch and get the value from the enum directly
 		var errorType = "";
-		switch (model.severity)
-		{
+		switch (model.severity) {
 			case 8:
 				errorType = "Error";
 				break;
@@ -195,8 +191,7 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 		} else {
 			// Model Markers are how the monaco stores JS Linting errors
 			var modelMarkers = monacoEditor.getModelMarkers();
-			for (var i = 0; i < modelMarkers.length; i++)
-			{
+			for (var i = 0; i < modelMarkers.length; i++) {
 				errorInfo += printModelMarker(modelMarkers[i]) + "\n";
 			}
         }

@@ -34,7 +34,7 @@ function HelpEditorPane(mainWnd) {
 
 	function onDbClick(rowId) {
 		// if the current state of method item is lock we don't insert method prototype
-		if (!window.isEditMode) {
+		if (!parent.parent.isEditMode) {
 			return;
 		}
 
@@ -44,9 +44,15 @@ function HelpEditorPane(mainWnd) {
 			return;
 		}
 
-		// replace selected region on chosen method prototype
-		var cursorPosition = window.editor.session.replace(window.editor.selection.getRange(), code.text);
-		window.editor.moveCursorToPosition(cursorPosition);
+		// build the edit to replace the selected text with the code form the help pane
+		var insertCodeEdit = {
+			range : window.editor.getSelection(),
+			text  : code.text
+		};
+
+		// Make the replacement and put the cursor at the end of the inserted code
+		window.editor.executeEdits("", [insertCodeEdit]);
+		window.editor.setSelection(window.editor.getSelection().collapseToEnd());
 		window.editor.focus();
 	}
 

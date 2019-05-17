@@ -47,11 +47,12 @@
                     modified: currentModel
                 })
                 
-                parent.editor = diffEditor;
+                parent.editor = diffEditor.modifiedEditor;
                 parent.monacoEditor = monaco.editor;
-                // var codeLang = aras.getItemProperty(parent.parent.document.item, "method_type");
-                // parent.methodEditorHelper.setLanguage(codeLang);
+                var codeLang = aras.getItemProperty(parent.parent.document.item, "method_type");
+                parent.methodEditorHelper.setLanguage(codeLang);
                 parent.methodEditorHelper.setEditorChangeEvent();
+                parent.methodEditorHelper.addEditorContextActions();
             });
         }
     </script>

@@ -48,6 +48,7 @@
                 var codeLang = aras.getItemProperty(parent.parent.document.item, "method_type");
                 parent.methodEditorHelper.setLanguage(codeLang);
                 parent.methodEditorHelper.setEditorChangeEvent();
+                parent.methodEditorHelper.addEditorContextActions();
             });
         }
     </script>

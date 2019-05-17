@@ -74,7 +74,7 @@
 			// declare saveUserChanges function, and resize event
 			window.saveUserChanges = methodEditorHelper.saveUserChanges;
 			window.addEventListener("resize", function () {
-				window.editor.layout();
+				methodEditorHelper.resizeEditor();
 			});
 
 			// change main window events, such as "onSaveUnlockAndExitCommand",
@@ -83,13 +83,22 @@
         }
         
 		// if method code was changed we should save it
-		window.onbeforeunload = function () {
-			// NOTE: This does not work in Google Chrome
-			// Chrome seems to explicitly block most functionality in this event
-			if (methodEditorHelper.isTextChanged()) {
-				methodEditorHelper.saveUserChanges();
+		// Chrome seems to explicitly block most functionality in onbeforeunload events,
+		// so if we're using chrome, we'll do our saving from an onunload event instead
+		if (aras.Browser.isCh()) {
+			window.onunload = function(ev) {
+				var winBeforeClose = ev.currentTarget;
+				if (winBeforeClose.methodEditorHelper.isTextChanged()) {
+					winBeforeClose.methodEditorHelper.saveUserChanges();
+				}
 			}
-		};
+		} else {
+			window.onbeforeunload = function () {
+				if (methodEditorHelper.isTextChanged()) {
+					methodEditorHelper.saveUserChanges();
+				}
+			};
+		}
 
 		// for Chrome to correct focus handling in main window
 		if (aras.Browser.isCh() && window.frameElement) {

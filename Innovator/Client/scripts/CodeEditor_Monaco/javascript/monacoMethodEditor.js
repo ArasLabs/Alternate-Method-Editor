@@ -8,7 +8,8 @@ function MethodEditor(mainWnd) {
     var tabPane;
     var preservedMenuFrame = null;
     var textChanged = false;
-    var comparisonGeneration = 1;
+    this.selectionHasMethodName = false; // Used to determine if we can open a method based on the selected text
+    this.comparisonGeneration = 1;
 
     this.setLanguage = function (langName) {
         if (!window.editor) {
@@ -109,11 +110,9 @@ function MethodEditor(mainWnd) {
 	};
     
     this.saveUserChanges = function() {
-        if (parent.handleItemChange && (window.editor.getModel().modified === undefined)) {
+		if (parent.handleItemChange) {
             parent.handleItemChange("method_code", window.editor.getValue());
-        } else {
-            parent.handleItemChange("method_code", window.editor.getModel().modified.getValue());
-        }
+		}
     };
 
     this.changeEventMethods = function() {
@@ -180,12 +179,41 @@ function MethodEditor(mainWnd) {
             textChanged = true;
         }
 
-        if (window.editor.onDidChangeModelContent) {
-            window.editor.onDidChangeModelContent(handleChange);
-        } else {
-            window.editor.getModel().modified.onDidChangeContent(handleChange);
+        window.editor.onDidChangeModelContent(handleChange);
+
+        var checkMethodNameSelected = function(e) {
+            var selectedMethodName = window.methodEditorHelper.getSelectedTextInEditor();
+
+            var methodInInnovator = topWnd.aras.getItemByKeyedName("Method", selectedMethodName);
+            if (methodInInnovator === null || methodInInnovator === undefined)
+            {
+                window.methodEditorHelper.selectionHasMethodName.set(false);
+            }
+            else
+            {
+                window.methodEditorHelper.selectionHasMethodName.set(true);
+            }
         }
-	}
+
+        // What we're trying to do here is to enable certain actions based on the text the user has selected.
+        // I previously tried putting this code into an onContextMenu() event that the Monaco Editor supports;
+        // however, the context menu was being drawn before the action was being enabled.
+        //
+        // Here we're hijacking the default functionality of the context menu and forcing our conditions for
+        // the actions to be evaluated before the context menu is drawn.
+        var contextmenu = window.editor.getContribution('editor.contrib.contextmenu');
+        var basecontextmenu = contextmenu._onContextMenu;
+        contextmenu._onContextMenu = function() {
+            checkMethodNameSelected();
+            basecontextmenu.apply(contextmenu, arguments);
+        }
+    };
+    
+    this.getSelectedTextInEditor = function() {
+        var editorModel = window.editor.getModel();
+        
+        return editorModel.getValueInRange(window.editor.getSelection());
+    };
 
 	this.overideDeleteCommand = function() {
 		topWnd.onPurgeDeleteCommandOriginal = topWnd.onPurgeDeleteCommand;
@@ -225,5 +253,33 @@ function MethodEditor(mainWnd) {
 
     this.setComparisonMethodGeneration = function(genToCompare) {
         this.comparisonGeneration = genToCompare;
+    };
+
+    this.addEditorContextActions = function() {
+        // TODO: Migrate this functionality to somewhere more configurable
+
+        // Build our conditions
+        this.selectionHasMethodName = editor.createContextKey('selectionHasMethodName', false);
+
+        window.editor.addAction({
+            id: 'open_method_item',
+
+            label: 'Open Method Item',
+
+            precondition: 'selectionHasMethodName',
+
+            keybindingContext: null,
+
+            contextMenuGroupId: 'navigation',
+
+            // TODO: Find what the orders for the standard menus are
+            contextMenuOrder: 1.5,
+
+            run: function(ed) {
+                var selectedMethodName = ed.getModel().getValueInRange(ed.getSelection());
+                var methodToOpen = topWnd.aras.getItemByKeyedName("Method", selectedMethodName);
+                topWnd.aras.uiShowItemEx(methodToOpen);
+            }
+        });
     };
 }
