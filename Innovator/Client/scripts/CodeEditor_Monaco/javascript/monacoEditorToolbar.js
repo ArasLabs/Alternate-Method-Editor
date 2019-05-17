@@ -133,6 +133,9 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
             case "fhelp":
                 showHideHelp(tbItem.getState());
                 break; // hide or show help tab
+			      case "fullscreen":
+        				toggleFullscreen();
+        				break;
             }
 	}
 	
