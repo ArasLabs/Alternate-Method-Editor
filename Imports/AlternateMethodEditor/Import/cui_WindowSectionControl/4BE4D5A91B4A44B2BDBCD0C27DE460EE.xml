@@ -1,0 +1,17 @@
+﻿<AML>
+ <Item type="cui_WindowSectionControl" id="4BE4D5A91B4A44B2BDBCD0C27DE460EE" action="add">
+  <action>Remove</action>
+  <related_id keyed_name="ItemView.RelationshipAccordion" type="cui_Control">
+   <Item type="cui_Control" id="4053A433596B4FE5900B9BE6B62B65CC" action="add">
+    <additional_data>{
+"cssClass": "aras-item-view__relationship-accordion"
+}</additional_data>
+    <control_type>AccordionElementControl</control_type>
+    <name>ItemView.RelationshipAccordion</name>
+   </Item>
+  </related_id>
+  <role keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</role>
+  <sort_order>512</sort_order>
+  <source_id keyed_name="ItemView.Method" type="cui_WindowSection">4B67B116E0DA4B27AA9E88E54DF81528</source_id>
+ </Item>
+</AML>

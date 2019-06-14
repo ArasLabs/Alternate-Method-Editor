@@ -1,6 +1,6 @@
 # Alternate Method Editor
 
-[Visual Studio Code](https://code.visualstudio.com/) has quickly become one of the most popular code editors among software developers. Last year, Microsoft released the browser-based editor that powers VS Code as a standalone application called the [Monaco Editor](https://github.com/Microsoft/monaco-editor). Out-of-the-box, the Monaco Editor supports Microsoft's signature [Intellisense](https://docs.microsoft.com/en-us/visualstudio/ide/using-intellisense) as well as the option to compare two different pieces of code.
+[Visual Studio Code](https://code.visualstudio.com/) has quickly become one of the most popular code editors among software developers. Microsoft released the browser-based editor that powers VS Code as a standalone application called the [Monaco Editor](https://github.com/Microsoft/monaco-editor). Out-of-the-box, the Monaco Editor supports Microsoft's signature [Intellisense](https://docs.microsoft.com/en-us/visualstudio/ide/using-intellisense) as well as the option to compare two different pieces of code.
 
 As Visual Studio Code is the preferred code editor of many members of the Aras Labs team, this project aims to integrate the Monaco Editor into an alternate Method Form to allow for an enhanced developer experience 
 for writing methods inside of Aras Innovator.
@@ -10,11 +10,14 @@ for writing methods inside of Aras Innovator.
 ## Project Details
 
 #### Built Using:
-Aras 11.0 SP15
+Aras 12.0, Aras Innovator 11.0 SP15
+
+> Please note that release 3.0+ of this product is written to support Aras Innovator 12.0 and may have unintended results if you attempt to use it with an earlier version. If you are using Aras Innovator 11.0 SP15, please be sure to download release [v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3).
 
 #### History:
 Release | Notes
 --------|--------
+[v3.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.0) | Added support for 12.0
 [v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | Bug fixes
 [v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | Add JS messages back to compile button
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | Bug fixes.
@@ -25,6 +28,7 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v3.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.0) | 12.0
 [v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | 11.0 SP15
 [v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15
 [v2.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.1) | 11.0 SP15
@@ -39,7 +43,7 @@ Project | Notes
 
 ### Pre-requisites
 
-1. Aras Innovator installed (version 11.0 SP15 preferred)
+1. Aras Innovator installed (version 12.0 preferred)
 2. Aras Package Import tool
 3. AlternateMethodEditor import package
 

@@ -2,11 +2,11 @@
 /* exported MonacoEditorToolbar */
 
 function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
-    var toolbar;
-    var topWnd = mainWnd;
-    var currentLanguageSide = "Client";
-    var methodEditor = methodEditorHelper;
-    this.blockComment = "";
+	var toolbar;
+	var topWnd = mainWnd;
+	var currentLanguageSide = "Client";
+	var methodEditor = methodEditorHelper;
+	this.blockComment = "";
 
 	function getOneLineComment() {
 		switch (methodEditor.currentLanguage) {
@@ -19,96 +19,98 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			default:
 				return "//";
 		}
-    }
-    
-    this.initToolbar = function initToolbar() {
-        clientControlsFactory.createControl("Aras.Client.Controls.Public.ToolBar", { id: "tb1", connectId: "toolbar" }, function(control) {
-            toolbar = control;
-            toolbar.loadXml(topWnd.aras.getI18NXMLResource("toolbar.xml", topWnd.aras.getScriptsURL() + "CodeEditor_Monaco"));
-            toolbar.show();
+	}
 
-            var codelang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
-            methodEditor.currentLanguage = codelang;
-            toolbar.getItem("method_lang").enable();
-            
-            if (codelang === "JScript" || codelang === "JavaScript") {
-                toolbar.getItem("side").setSelected("client");
-            } else {
-                toolbar.getItem("side").setSelected("server");
+	this.initToolbar = function initToolbar() {
+		clientControlsFactory.createControl("Aras.Client.Controls.Public.ToolBar", {
+			id: "tb1",
+			connectId: "toolbar"
+		}, function (control) {
+			toolbar = control;
+			toolbar.loadXml(topWnd.aras.getI18NXMLResource("toolbar.xml", topWnd.aras.getScriptsURL() + "CodeEditor_Monaco"));
+			toolbar.show();
+
+			var codelang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
+			methodEditor.currentLanguage = codelang;
+			toolbar.getItem("method_lang").enable();
+
+			if (codelang === "JScript" || codelang === "JavaScript") {
+				toolbar.getItem("side").setSelected("client");
+			} else {
+				toolbar.getItem("side").setSelected("server");
 			}
-			
+
 			toolbar.getItem("theme").enable();
 			var monacoThemes = topWnd.aras.getListId("Monaco Editor Themes");
 			var themeValues = topWnd.aras.getListValues(monacoThemes);
 			for (var i = 0; i < themeValues.length; i++) {
 				var themeValue = themeValues[i];
 				toolbar.getItem("theme").Add(topWnd.aras.getItemProperty(themeValue, "value"),
-											 topWnd.aras.getItemProperty(themeValue, "label"));
+					topWnd.aras.getItemProperty(themeValue, "label"));
 			}
 
 			toolbar.getItem("compareRevisions").enable();
 			// Assumes that you're viewing the most current generation
 			var methodGenerations = topWnd.aras.getItemProperty(parent.document.item, "generation");
-			for (var i = (parseInt(methodGenerations) - 1); i > 0; i--)
-			{
+			for (var i = (parseInt(methodGenerations) - 1); i > 0; i--) {
 				toolbar.getItem("generations").Add(i.toString(), i.toString());
 			}
 
-            clientControlsFactory.on(toolbar, {
-                "onClick": onTbItemClick,
-                "onChange": onDropDownItemClickHandler
-            });
+			clientControlsFactory.on(toolbar, {
+				"onClick": onTbItemClick,
+				"onChange": onDropDownItemClickHandler
+			});
 
-            setMethodSide(toolbar.getItem("side").getSelectedItem());
-        });
+			setMethodSide(toolbar.getItem("side").getSelectedItem());
+		});
 		// toolbar icons loading too slow. If we try to disable toolbar we will disable only some of them
 		// so we do timeout
-		setTimeout(function() {
+		setTimeout(function () {
 			if (parent.document.isEditMode) {
 				toolbar.enable();
 			} else {
 				toolbar.disable();
 			}
 		}, 10);
-    };
+	};
 
-    function onTbItemClick(tbItem) {
-        var tbItemId = tbItem.getId();
-        switch (tbItemId) {
-            case "print":
-                printText();
-                break;
-            case "undo":
-                // The first two arguments to this trigger event don't matter for undo and redo, so we just pass in junk values
-                window.editor.trigger('', 'undo', '');
-                break;
-            case "redo":
-                window.editor.trigger('', 'redo', '');
-                break;
-            case "find":
-                window.editor.trigger('', 'actions.find', '');
-                break;
-            case "replace":
-                window.editor.trigger('', 'actions.replace', '');
-                break;
+	function onTbItemClick(tbItem) {
+		var tbItemId = tbItem.getId();
+		switch (tbItemId) {
+			case "print":
+				printText();
+				break;
+			case "undo":
+				// The first two arguments to this trigger event don't matter for undo and redo, so we just pass in junk values
+				window.editor.trigger('', 'undo', '');
+				break;
+			case "redo":
+				window.editor.trigger('', 'redo', '');
+				break;
+			case "find":
+				window.editor.trigger('', 'actions.find', '');
+				break;
+			case "replace":
+				window.editor.trigger('', 'actions.replace', '');
+				break;
 			case "unindent":
 				window.editor.trigger('', 'editor.action.outdentLines', '')
 				break;
 			case "indent":
 				window.editor.trigger('', 'editor.action.indentLines', '')
 				break;
-            case "formatting":
-                window.editor.trigger('', 'editor.action.formatDocument', '');
-                window.editor.focus();
-                break;
+			case "formatting":
+				window.editor.trigger('', 'editor.action.formatDocument', '');
+				window.editor.focus();
+				break;
 			case "comment":
 				window.editor.trigger('', 'editor.action.addCommentLine', '');
-                break;
-            case "uncomment":
+				break;
+			case "uncomment":
 				window.editor.trigger('', 'editor.action.removeCommentLine', '');
 				break;
-            case "chksyn":
-                checkSyntax();
+			case "chksyn":
+				checkSyntax();
 				break;
 			case "compareRevisions":
 				if (methodEditor.isTextChanged()) {
@@ -121,24 +123,25 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 					methodEditor.closeDiffEditor();
 				}
 				break;
-            case "ftoc":
-                showHideToc(tbItem.getState());
-                break; // hide or show help pane
-            case "toc_pos":
-                switchHelpPanePosition();
-                break; // change help pane position (right or left).
-            case "help":
-                showHelpBySelection();
-                break; // show help about selected method code
-            case "fhelp":
-                showHideHelp(tbItem.getState());
-                break; // hide or show help tab
-			      case "fullscreen":
-        				toggleFullscreen();
-        				break;
-            }
+			case "ftoc":
+				showHideToc(tbItem.getState());
+				break; // hide or show help pane
+			case "toc_pos":
+				switchHelpPanePosition();
+				break; // change help pane position (right or left).
+			case "help":
+				showHelpBySelection();
+				break; // show help about selected method code
+			case "fhelp":
+				showHideHelp(tbItem.getState());
+				break; // hide or show help tab
+			case "fullscreen":
+				// Get the element of the Form
+				toggleFullscreen();
+				break;
+		}
 	}
-	
+
 	// Model Markers are what's used to keep track of compilation errors
 	function printModelMarker(model) {
 		var errorString = "";
@@ -168,12 +171,12 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 		return errorString;
 	}
 
-    function printText() {
-        var frame = document.getElementById("printable").contentWindow;
-        frame.document.body.innerHTML = "<PRE>" + topWnd.aras.getItemProperty(parent.document.item, "method_code") + "</PRE>";
-        frame.focus(); // This is key, the iframe must have focus first
-        frame.print();
-    }
+	function printText() {
+		var frame = document.getElementById("printable").contentWindow;
+		frame.document.body.innerHTML = "<PRE>" + topWnd.aras.getItemProperty(parent.document.item, "method_code") + "</PRE>";
+		frame.focus(); // This is key, the iframe must have focus first
+		frame.print();
+	}
 
 	function showHideToc(doVisible) {
 		document.getElementById("helpPane").style.display = doVisible ? "" : "none";
@@ -181,13 +184,14 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 		dijit.byId("workarea").resize();
 	}
 
-    function checkSyntax() {
-        methodEditor.saveUserChanges();
-        methodEditor.selectTab("debugTab");
-        document.getElementById("debug").value = "Checking syntax...\n\n";
-        var errorInfo = "", warningInfo = "";
-        var lang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
-        if (lang === "VB" || lang === "C#" || lang === "VJSharp") {
+	function checkSyntax() {
+		methodEditor.saveUserChanges();
+		methodEditor.selectTab("debugTab");
+		document.getElementById("debug").value = "Checking syntax...\n\n";
+		var errorInfo = "",
+			warningInfo = "";
+		var lang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
+		if (lang === "VB" || lang === "C#" || lang === "VJSharp") {
 			var resultXml = topWnd.aras.createXMLDocument();
 			resultXml.loadXML(topWnd.aras.compileMethod(parent.document.item.xml));
 			errorInfo = resultXml.selectSingleNode("/Result/status").text;
@@ -197,13 +201,13 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			for (var i = 0; i < modelMarkers.length; i++) {
 				errorInfo += printModelMarker(modelMarkers[i]) + "\n";
 			}
-        }
-        if (errorInfo === "") {
-            errorInfo = "ok";
-        }
-        document.getElementById("debug").value += errorInfo;
-        window.editor.focus();
-    }
+		}
+		if (errorInfo === "") {
+			errorInfo = "ok";
+		}
+		document.getElementById("debug").value += errorInfo;
+		window.editor.focus();
+	}
 
 	function switchHelpPanePosition() {
 		if (dijit.byId("workAreaWrapper").region === "leading") {
@@ -227,14 +231,14 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 		dijit.byId("helpDebugSlot").layout();
 		dijit.byId("BorderContainer").layout();
 		methodEditor.resizeEditor();
-    }
-    
-    function showHelpBySelection() {
-        var searchString = escape(window.editor.getModel().getValueInRange(window.editor.getSelection()));
-        var helpRow = window.helpTab.getHelper().getIdByLabel(searchString);
+	}
+
+	function showHelpBySelection() {
+		var searchString = escape(window.editor.getModel().getValueInRange(window.editor.getSelection()));
+		var helpRow = window.helpTab.getHelper().getIdByLabel(searchString);
 		var rowId = helpRow ? helpRow.selectSingleNode("id").text : searchString;
 		window.helpTab.showHelp(rowId, false);
-    }
+	}
 
 	function refreshDebugHelpSlot(doVisible) {
 		var h = document.documentElement.offsetHeight;
@@ -325,32 +329,32 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			toolbar.getItem("side").setSelected("server");
 		}
 		setMethodSide(val);
-    }
-    
-    function getSelectedRows() {
-        var selectedText = window.editor.getSelection();
+	}
 
-        return {
-            first: selectedText.startLineNumber,
-            last: selectedText.endLineNumber
-        }
-    }
+	function getSelectedRows() {
+		var selectedText = window.editor.getSelection();
 
-    function commentLines(direction) {
-        var rows = getSelectedRows();
+		return {
+			first: selectedText.startLineNumber,
+			last: selectedText.endLineNumber
+		}
+	}
 
-        toggleCommentLines(rows.first, rows.last, direction);
-    }
+	function commentLines(direction) {
+		var rows = getSelectedRows();
 
-    function toggleCommentLines(startRow, endRow, direction) {
-        alert("Comment lines is currently not implemented");
-    }
+		toggleCommentLines(rows.first, rows.last, direction);
+	}
 
-    this.enable = function() {
-        toolbar.enable();
-    };
+	function toggleCommentLines(startRow, endRow, direction) {
+		alert("Comment lines is currently not implemented");
+	}
 
-    this.disable = function() {
-        toolbar.disable();
-    };
+	this.enable = function () {
+		toolbar.enable();
+	};
+
+	this.disable = function () {
+		toolbar.disable();
+	};
 }

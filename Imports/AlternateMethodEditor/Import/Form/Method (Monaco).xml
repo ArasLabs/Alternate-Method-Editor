@@ -2,7 +2,7 @@
  <Item type="Form" id="5B30C7E147304E1D9214225DC844E23F" action="add">
   <category_form>0</category_form>
   <description>An Alternative Method Editor</description>
-  <height>659</height>
+  <height>759</height>
   <stylesheet><![CDATA[../styles/default.css]]></stylesheet>
   <width>1024</width>
   <name>Method (Monaco)</name>
@@ -80,6 +80,7 @@
   height:100%;
 }
 {$this field rule} .sys_f_value {
+        display: block;
 	height: 100%;
 }
 {$this field rule} .sys_fn_method_code {
