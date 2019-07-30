@@ -112,6 +112,9 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			case "chksyn":
 				checkSyntax();
 				break;
+			case "add_debugger":
+				addDebugger();
+				break;
 			case "compareRevisions":
 				if (methodEditor.isTextChanged()) {
 					methodEditor.saveUserChanges();
@@ -206,6 +209,39 @@ function MonacoEditorToolbar(mainWnd, methodEditorHelper) {
 			errorInfo = "ok";
 		}
 		document.getElementById("debug").value += errorInfo;
+		window.editor.focus();
+	}
+
+	function addDebugger() {
+		var editorSelection = window.editor.getSelection();
+		
+		// Get the number of tabs to indent the second line the C# and VB debugger statement
+		var numTabs = Math.floor(editorSelection.startColumn / 4);
+		var debuggerCode = "";
+		switch (methodEditor.currentLanguage) {
+			case "JavaScript":
+				debuggerCode = "debugger;";
+				break;
+			case "C#":
+			case "VB":
+			case "VJSharp":
+				debuggerCode = "System.Diagnostics.Debugger.Launch();\n";
+				Array.from({length: numTabs}).forEach((x,i) => (debuggerCode += "\t")); // tab the next line to the same line as the Launch function
+				debuggerCode += "System.Diagnostics.Debugger.Break();";
+				break;
+			default:
+				debuggerCode = "";
+		}
+
+		// build the edit to replace the selected text with a debugger statement
+		var insertDebuggerEdit = {
+			range : editorSelection,
+			text : debuggerCode
+		};
+
+		// Make the replacement and put the cursor at the end of the inserted code
+		window.editor.executeEdits("", [insertDebuggerEdit]);
+		window.editor.setSelection(window.editor.getSelection().collapseToEnd());
 		window.editor.focus();
 	}
 

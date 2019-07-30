@@ -22,6 +22,7 @@
 		<button image="../images/Uncomment.svg" id="uncomment" tooltip="Uncomment"/>
 		<separator/>
 		<button image="../images/Compile.svg" id="chksyn" tooltip="Check syntax"/>
+		<button image="../images/Blocked.svg" id="add_debugger" tooltip="Add debug statement"/>
 		<separator/>
 		<button image="../images/Compare.svg" id="compareRevisions" state="0" tooltip="Compare with Old Generation"/>
 		<choice id="generations" width="auto" tooltip="Generation to Compare">
