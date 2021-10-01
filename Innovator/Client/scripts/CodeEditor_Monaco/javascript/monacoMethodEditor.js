@@ -10,6 +10,7 @@ function MethodEditor(mainWnd) {
     var textChanged = false;
     this.selectionHasMethodName = false; // Used to determine if we can open a method based on the selected text
     this.comparisonGeneration = 1;
+	this.subscribedEvents = {};
 
     this.setLanguage = function (langName) {
         if (!window.editor) {
@@ -18,24 +19,26 @@ function MethodEditor(mainWnd) {
         var editorLang = "";
         switch(langName) {
             case "VB":
-                editorLang = "vb";
+				        editorLang = "vbscript";
                 break;
             case "C#":
                 editorLang = "csharp";
                 break;
             case "JavaScript":
                 editorLang = "javascript";
+				        break;
 		}
         window.monacoEditor.setModelLanguage(window.editor.getModel(), editorLang);
         this.currentLanguage = langName;
     };
 
-    this.switchLanguage = function (lang) {
-        this.setLanguage(lang);
-        var codelang = topWnd.aras.getItemProperty(parent.document.item, "method_type");
-        if (codelang !== lang) {
-            topWnd.aras.setItemProperty(parent.document.item, "method_type", lang);
-        }
+    this.switchLanguage = function (newLanguage) {
+		this.setLanguage(newLanguage);
+		const currentItem = parent.document.item;
+		const previousLanguage = topWnd.aras.getItemProperty(currentItem, 'method_type');
+		if (previousLanguage !== newLanguage && topWnd.aras.isEditStateEx(currentItem)) {
+			topWnd.aras.setItemProperty(currentItem, 'method_type', newLanguage);
+		}
 	};
 	
 	this.switchTheme = function (theme) {
@@ -63,7 +66,9 @@ function MethodEditor(mainWnd) {
     };
 
     this.resizeEditor = function() {
-        window.editor.layout(); // TODO: Check if this is right
+        if (window.editor) {
+            window.editor.layout(); // TODO: Check if this is right
+        }
     };
 
     this.initTabPane = function() {
@@ -95,17 +100,18 @@ function MethodEditor(mainWnd) {
 		}
     };
 
-	this.restoreParentMenu = function () {
-		if (preservedMenuFrame === null) {
+	this.restoreParentMenu = function() {
+		if (!preservedMenuFrame) {
 			return;
 		}
-		if (typeof (preservedMenuFrame["Restore setControlEnabled"]) === "function") {
-			preservedMenuFrame["Restore setControlEnabled"]();
-		}
-		else {
-			var menuFrame = (top.isTearOff ? top.tearOffMenuController : top.menu);
-			menuFrame.setControlEnabled = menuFrame["Preserved setControlEnabled"];
-			menuFrame["Restore setControlEnabled"] = undefined;
+
+		if (typeof (preservedMenuFrame['Restore setControlEnabled']) === 'function') {
+			preservedMenuFrame['Restore setControlEnabled']();
+		} else {
+			const topWnd = aras.getMostTopWindowWithAras(window);
+			const menuFrame = (topWnd.isTearOff ? topWnd.tearOffMenuController : topWnd.menu);
+			menuFrame.setControlEnabled = menuFrame['Preserved setControlEnabled'];
+			menuFrame['Restore setControlEnabled'] = undefined;
 		}
 	};
     
@@ -163,12 +169,29 @@ function MethodEditor(mainWnd) {
 		topWnd.eval("onUnlockCommand=" + unlockCommand);
 
 
-		var lockCommand = topWnd["onLockCommand"].toString(); // jshint ignore:line
-		var lockIndex = lockCommand.indexOf("{");
-		lockCommand = lockCommand.substr(0, lockIndex + 1) + " SetReadOnlyMode(false); " + lockCommand.substr(lockIndex + 1);
-		topWnd.eval("onLockCommand=" + lockCommand);
+		// window.editor.on("change", function () {
+		// 	if (!textChanged) {
+		// 		window.saveUserChanges();
+		// 	}
+		// 	textChanged = true;
+		// });
 
-        //--- handle method code change
+		// window.editor.on('blur', function () {
+		// 	window.saveUserChanges();
+		// });
+		//--- handle method code change
+
+		this.registerCommandHandler('before', 'done', function() {
+			topWnd.methodEditor_saveUserChangesIfNeed();
+		}, 'onBeforeDone');
+
+		this.registerCommandHandler('after', 'done', function() {
+			topWnd.SetReadOnlyMode(true);
+		}, 'onAfterDone');
+
+		this.registerCommandHandler('after', 'edit', function() {
+			topWnd.SetReadOnlyMode(false);
+		}, 'onAfterEdit');
 	};
 	
 	this.setEditorChangeEvent = function() {
@@ -180,7 +203,10 @@ function MethodEditor(mainWnd) {
         }
 
         window.editor.onDidChangeModelContent(handleChange);
-
+        window.editor.onDidBlurEditorWidget(function() {
+            window.saveUserChanges();
+        });
+        
         var checkMethodNameSelected = function(e) {
             var selectedMethodName = window.methodEditorHelper.getSelectedTextInEditor();
 
@@ -282,4 +308,17 @@ function MethodEditor(mainWnd) {
             }
         });
     };
+    
+	this.registerCommandHandler = function(eventType, commandName, callback, eventKey) {
+		if (topWnd.registerCommandEventHandler) {
+			this.subscribedEvents[eventKey] = topWnd.registerCommandEventHandler(window, callback, eventType, commandName);
+		}
+	};
+
+	this.unregisterCommandHandler = function(eventKey) {
+		const key = this.subscribedEvents[eventKey];
+		if (key) {
+			topWnd.unregisterCommandEventHandler(key);
+		}
+	};
 }

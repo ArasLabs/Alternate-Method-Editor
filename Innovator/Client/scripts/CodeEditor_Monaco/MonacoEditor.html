@@ -5,12 +5,7 @@
         var topWnd = window.parent.parent;
         var aras = topWnd.aras;
     </script>
-    <script type="text/javascript" src="javascript/monaco-editor/min/vs/loader.js"></script>
-    <style type="text/css" media="screen">
-        #editor {
-
-        }
-    </style>
+    <script type="text/javascript" src="../../vendors/monaco-editor/min/vs/loader.js"></script>
     <style type="text/css">
         html, body {
             overflow: hidden;
@@ -26,15 +21,15 @@
     </style>
 	<link rel="stylesheet" href="css/methodeditor.css" />
     <script type="text/javascript">
-        window.onload = function() {
+		window.addEventListener('load', function() {
 
             // initialize toolbar, helpTab, editor
             initEditor();
-        }
+        });
 
         // initialize the Monaco editor
         function initEditor() {
-            require.config({ paths: { 'vs': 'javascript/monaco-editor/min/vs' }});
+            require.config({ paths: { 'vs': '../../vendors/monaco-editor/min/vs' }});
             require(['vs/editor/editor.main'], function() {
                 var code = aras.getItemProperty(parent.parent.document.item, "method_code") || "";
                 var editor = monaco.editor.create(document.getElementById('editormain'), {
@@ -45,6 +40,7 @@
                 });
                 parent.editor = editor;
                 parent.monacoEditor = monaco.editor;
+                parent.monaco = monaco;
                 var codeLang = aras.getItemProperty(parent.parent.document.item, "method_type");
                 parent.methodEditorHelper.setLanguage(codeLang);
                 parent.methodEditorHelper.setEditorChangeEvent();

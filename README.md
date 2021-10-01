@@ -17,6 +17,7 @@ Aras 12.0, Aras Innovator 11.0 SP15
 #### History:
 Release | Notes
 --------|--------
+[v3.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.1) | Added support for 12.0 SP18
 [v3.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.0) | Added support for 12.0
 [v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | Bug fixes
 [v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | Add JS messages back to compile button
@@ -28,6 +29,7 @@ Release | Notes
 #### Supported Aras Versions
 Project | Notes
 --------|--------
+[v3.1](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.1) | 12.0 SP18
 [v3.0](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v3.0) | 12.0
 [v2.3](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.3) | 11.0 SP15
 [v2.2](https://github.com/ArasLabs/alternate-method-editor/releases/tag/v2.2) | 11.0 SP15

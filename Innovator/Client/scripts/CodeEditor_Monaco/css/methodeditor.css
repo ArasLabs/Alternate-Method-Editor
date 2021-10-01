@@ -160,9 +160,15 @@ table.dtTABLE td
 }
 #debugTab
 {
-	height: 100%; 
+	height: 100%;
+	overflow: hidden;
+}
+#debug {
 	padding-top: 10px;
 	padding-left: 15px;
+	resize: none;
+	box-sizing: border-box;
+	overflow: visible;
 }
 #grid
 {

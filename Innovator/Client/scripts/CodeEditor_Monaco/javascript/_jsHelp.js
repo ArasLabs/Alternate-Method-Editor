@@ -2,7 +2,7 @@
 {
 	this.version = "1.0";
 	this.helpURL = helpURL;
-	this.helpStorage = top.aras.createXMLDocument();
+	this.helpStorage = aras.createXMLDocument();
 	this.helpStorage.load(helpURL);
 
 	this.getIdByLabel = function(text)

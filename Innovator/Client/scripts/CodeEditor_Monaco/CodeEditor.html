@@ -12,12 +12,6 @@
 	<script type="text/javascript" src="javascript/helpEditorPane.js"></script>
 	<script type="text/javascript" src="javascript/monacoMethodEditor.js"></script>
 	<script type="text/javascript" src="javascript/beautify.js"></script>
-
-	<style type="text/css" media="screen">
-		#editor {
-
-		}
-	</style>
 	<style type="text/css">
 		@import "../../javascript/dojo/resources/dojo.css";
 		@import "../../javascript/dijit/themes/claro/claro.css";
@@ -38,82 +32,62 @@
 		}
 	</style>
 	<link rel="stylesheet" href="css/methodeditor.css" />
-	<script type="text/javascript" src="../../javascript/include.aspx?classes=XmlDocument"></script>
-	<script type="text/javascript" src="../../javascript/include.aspx?classes=/dojo.js" data-dojo-config="isDebug: false, parseOnLoad: true, baseUrl:'../../javascript/dojo'"></script>
+	<script type="text/javascript" src="../../javascript/include.aspx?classes=XmlDocument,polyfillsBundle"></script>
+	<script type="text/javascript" src="../../javascript/include.aspx?classes=/dojo.js" data-dojo-config="isDebug: false, parseOnLoad: true, baseUrl:'../../javascript/dojo', async: true"></script>
 	<script type="text/javascript">
 		
-		// javascript/methodEditor.js
-		// create method editor helper for working with tabs, panels and editor
-		var methodEditorHelper = new MethodEditor(topWnd); 
+		window.addEventListener('load', function() {
+			// javascript/methodEditor.js
+			// create method editor helper for working with tabs, panels and editor
+			window.methodEditorHelper = new MethodEditor(topWnd);
+			window.methodEditorHelper.fillListOfMethodLanguages();
+			// override delete command. This was from standard product and I don't think we need it.
+			// window.methodEditorHelper.overrideDeleteCommand();
 
-		// javascript/codeEditorToolbar.js
-		// create toolbar helper for working with editor toolbar
-		window.toolbar = new MonacoEditorToolbar(topWnd, methodEditorHelper);
+			// javascript/helpEditorTab.js
+			// create helpTab helper for working with help tab
+			window.helpTab = new HelpEditorTab(topWnd, methodEditorHelper);
 
-		// javascript/helpEditorTab.js
-		// create helpTab helper for working with help tab
-		window.helpTab = new HelpEditorTab(topWnd, methodEditorHelper);
+			// javascript/helpEditorPane.js
+			// create helpPane helper for working with help panel
+			window.helpPane = new HelpEditorPane(topWnd);
 
-		// javascript/helpEditorPane.js
-		// create helpPane helper for working with help panel
-		window.helpPane = new HelpEditorPane(topWnd);
+			// javascript/codeEditorToolbar.js
+			// create toolbar helper for working with editor toolbar
+			window.toolbar = new MonacoEditorToolbar(topWnd, methodEditorHelper);
+			// initialize toolbar, helpTab, editor
+			window.toolbar.initToolbar();
+			window.helpTab.initHelp();
 
-		// overide delete command. I don't know why? old code.
-		methodEditorHelper.overideDeleteCommand();
-        
-        window.onload = function() {
-            methodEditorHelper.fillListOfMethodLanguages();
-            window.toolbar.initToolbar();
-            window.helpTab.initHelp();
-			// show help tree
-			setTimeout(function() { window.helpPane.showHelp(); }, 100);
+			window.helpPane.showHelp();
+			methodEditorHelper.initParentMenu();
 
-			// i don't know why
-            setTimeout(function() { methodEditorHelper.initParentMenu();}, 20);
-            
-			// declare saveUserChanges function, and resize event
+			// declare saveUserChanges function
 			window.saveUserChanges = methodEditorHelper.saveUserChanges;
-			window.addEventListener("resize", function () {
+
+			// Reset undo stack? May be unnecessary for monaco editor
+
+			// change main window events such as "onSaveUnlockAndExitCommand",
+			// onSaveCommand, onUnlockCommand, onLockCommand"
+			methodEditorHelper.changeEventMethods();
+
+			const resizeObserver = new ResizeObserver(entries => {
 				methodEditorHelper.resizeEditor();
 			});
+			resizeObserver.observe(document.getElementById('workAreaWrapper'));
+		});
 
-			// change main window events, such as "onSaveUnlockAndExitCommand",
-			// onSaveCommand, onUnlockCommand, onLockCommand" 
-			methodEditorHelper.changeEventMethods();
-        }
-        
 		// if method code was changed we should save it
-		// Chrome seems to explicitly block most functionality in onbeforeunload events,
-		// so if we're using chrome, we'll do our saving from an onunload event instead
-		if (aras.Browser.isCh()) {
-			window.onunload = function(ev) {
-				var winBeforeClose = ev.currentTarget;
-				if (winBeforeClose.methodEditorHelper.isTextChanged()) {
-					winBeforeClose.methodEditorHelper.saveUserChanges();
-				}
+		window.addEventListener('beforeunload', function() {
+			if (methodEditorHelper.isTextChanged) {
+				methodEditorHelper.saveUserChanges();
 			}
-		} else {
-			window.onbeforeunload = function () {
-				if (methodEditorHelper.isTextChanged()) {
-					methodEditorHelper.saveUserChanges();
-				}
-			};
-		}
+			// I don't know why
+			methodEditorHelper.restoreParentMenu();
 
-		// for Chrome to correct focus handling in main window
-		if (aras.Browser.isCh() && window.frameElement) {
-			window.addEventListener('focus', function() {
-				window.frameElement.focus();
-			});
-		}
-
-		// add editor resize event to basic dojo ContentPane
-		require(["dojo/ready", "dojo/aspect", "dijit/registry"], function (ready, aspect, registry) {
-			ready(function () {
-				aspect.after(registry.byId("workAreaWrapper"), "resize", function () {
-					methodEditorHelper.resizeEditor();
-				});
-			});
+			methodEditorHelper.unregisterCommandHandler('onBeforeDone');
+			methodEditorHelper.unregisterCommandHandler('onAfterDone');
+			methodEditorHelper.unregisterCommandHandler('onAfterEdit');
 		});
 	</script>
 </head>

@@ -5,12 +5,7 @@
         var topWnd = window.parent.parent;
         var aras = topWnd.aras;
     </script>
-    <script type="text/javascript" src="javascript/monaco-editor/min/vs/loader.js"></script>
-    <style type="text/css" media="screen">
-        #editor {
-
-        }
-    </style>
+    <script type="text/javascript" src="../../vendors/monaco-editor/min/vs/loader.js"></script>
     <style type="text/css">
         html, body {
             overflow: hidden;
@@ -26,14 +21,15 @@
     </style>
     <link rel="stylesheet" href="css/methodeditor.css" />
     <script type="text/javascript">
-        window.onload = function() {
-            // initialize diff editor
+        window.addEventListener('load', function() {
+
+            // initialize toolbar, helpTab, editor
             initDiffEditor();
-        }
+        });
 
         // Initialize the diff editor
         function initDiffEditor() {
-            require.config({ paths: { 'vs': 'javascript/monaco-editor/min/vs' }});
+            require.config({ paths: { 'vs': '../../vendors/monaco-editor/min/vs' }});
             require(['vs/editor/editor.main'], function() {
                 var oldMethodCode = parent.methodEditorHelper.getComparisonMethodCode();
                 var currentMethodCode = aras.getItemProperty(parent.parent.document.item, "method_code") || "";

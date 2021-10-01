@@ -1,4 +1,4 @@
-﻿<AML>
+<AML>
  <Item type="Form" id="5B30C7E147304E1D9214225DC844E23F" action="add">
   <category_form>0</category_form>
   <description>An Alternative Method Editor</description>
@@ -83,12 +83,6 @@
         display: block;
 	height: 100%;
 }
-{$this field rule} .sys_fn_method_code {
-    height: 100%;
-    width: 100%;
-    top: 30px;
-    left: 0px;
-}
 </css>
       <display_length_unit>px</display_length_unit>
       <field_type>html</field_type>
@@ -96,7 +90,27 @@
       <font_family>tahoma, arial, helvetica, sans-serif</font_family>
       <font_size>8pt</font_size>
       <font_weight>bold</font_weight>
-      <html_code><![CDATA[<iframe id="CodeEditor_iframe" src="CodeEditor_Monaco/CodeEditor.html" style="border: none; width:100vw; height:100vh; visibility:visible;" allowtransparency="true"></iframe>]]></html_code>
+      <html_code><![CDATA[<iframe id="CodeEditor_iframe" src="CodeEditor_Monaco/CodeEditor.html" style="border: none; width:100vw; height:100vh; visibility:visible;" allowtransparency="true"></iframe>
+<script type="text/javascript">
+function resizeMethodCode() {
+		var fld = getFieldByName("method_code");
+		fld.style.height = document.documentElement.clientHeight <= 32 ? "1px" : document.documentElement.clientHeight - 32 + "px";
+		var editorframe = document.getElementById("CodeEditor_iframe");
+		editorframe.style.width = document.documentElement.offsetWidth - 10 + "px";
+		if(	window.parent && window.parent.document.getElementById("CenterBorderContainer")){
+			editorframe.style.height = 	window.parent.document.getElementById("CenterBorderContainer").clientHeight - 32 + "px";
+		}
+	}
+onresize = resizeMethodCode;
+onload = function onload_handler() {
+	document.body.scroll = "no";
+	resizeMethodCode();
+	document.getElementById("CodeEditor_iframe").style.visibility = "visible";
+	const topWindow = aras.getMostTopWindowWithAras();
+	topWindow.document.querySelector('aras-form').style.height = '100%';
+}
+</script>
+]]></html_code>
       <is_disabled>0</is_disabled>
       <is_visible>1</is_visible>
       <label_position>top</label_position>
